@@ -11,6 +11,35 @@ A few resources to get you started if this is your first Flutter project:
 - [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
+For help to get started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+
+## Commits History
+
+### Added Static API Keys, Factory Constructor, URI creation, Making HTTP request and processing HTTP response
+***api_keys.dart***
+1. Added a new Dart file i.e. 'api_keys.dart'
+2. Added 'ncovApiV1SandboxKey' (and V2) Api KEYs that will be used to get to access-token.
+
+***api_endpoint.dart***
+- Note:   
+- Instance of the class will be used to build and return a desired URI.
+1. Added a new Dart file i.e. 'api_endpoint.dart'
+2. Added a default Constructor that accepts a @required String parameter i.e. 'this.apiKey' 
+3. Added a Factory constructor i.e. 'APIEndpoint.sandboxV1()' that returns an 'apiKey' from 'api_keys.dart'
+4. Added two static properties and associated values i.e. 'host' and 'port'
+5. Added 'tokenUri()' method that returns a 'Uri' based on the values provided. 
+
+***api_service.dart***
+- Note:   
+- Instance of the class will be used to make a Rest Request (Using URI) and return the API response i.e. 'Access Token' in this case.
+1. Added a new Dart file i.e. 'api_service.dart'
+2. Added a default Constructor that accepts a @required APIEndpoint parameter i.e. 'this.apiEndpoint' 
+3. Added 'getAccessToken()' method that 
+3.1. Makes an HTTP Post request using the URI received from 'apiEndpoint.getTokenUri().toString()'
+3.2. Fetches and returns the value associated  'access_token' key present in the JSON response received from HTTP request.
+3.2. Throw (and 'print') error (response) if (response.statusCode != 200).
+
+
