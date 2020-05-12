@@ -18,6 +18,16 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Commits History
 
+### Updated 'main.dart' to display 'accessToken' received from 'APIService'
+***main.dart***
+1. Replaced 'int _counter' with 'String _accessToken'.
+2. Replaced '_incrementCounter()' with '_updateAccessToken()' i.e.
+2.1. It fetches the 'accessToken' from 'apiService.getAccessToken()'.
+2.2. in the 'SetState()', assign the new value of 'accessToken' to '_accessToken'.
+3. Updated 'onPressed' of FAB to call '_updateAccessToken' instead of '_incrementCounter'.
+4. Updated 'Text' to use value of '_accessToken' instead of '_counter'.
+ 
+
 ### Added Static API Keys, Factory Constructor, URI creation, Making HTTP request and processing HTTP response
 ***api_keys.dart***
 1. Added a new Dart file i.e. 'api_keys.dart'
