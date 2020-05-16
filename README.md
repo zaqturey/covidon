@@ -18,6 +18,29 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Commits History
 
+### Added functionality to fetch and display endpoint data i.e. 'Cases', ''Recovered'
+***endpoint.dart***
+1. Added a new 'enum' i.e. 'Endpoint' that will be used to refer available API Endpoints
+
+***api_endpoint.dart***
+1. Added variables required to create new Endpoint Uri i.e.  'basePath', 'apiVersionV1', '_paths'
+2. '_paths' will store a 'Map' of the 'Endpoint' enum and API endpoint text.
+3. Method 'getEndpointUriNcovV1' is added to generate and return a Uri, based on the 'Endpoint' parameter
+ 
+***api_service.dart***
+1. Added a new Variable i.e. '_responseJsonKeys' that will store a 'Map' of the 'Endpoint' enum and corresponding API Key name'
+2. Added a new method i.e. 'getEndpointDataApiV1' that will i.e.
+2.1. Accepts two required parameters i.e. 'String accessToken' and 'Endpoint endpoint'
+2.2. Makes a GET request using the passed in 'endpoint'
+2.3. Based on the 'endpoint', it gets the corresponding '_responseJsonKeys' and then fetches its Value from the JSON response
+2.4. returns the response as an int value.
+2.5. Implemented error handling if there is an issue in fetching the JSON response 
+
+***main.dart***
+1. Fetched values for 'cases' and 'recovered' using 'apiService.getEndpointDataApiV1'
+2. Added separate Text widgets to display values for 'cases' and 'recovered' 
+3. Updated 'setState()' to the 'Text widgets' whenever the value for 'cases' and 'recovered' changes.
+
 ### Updated 'main.dart' to display 'accessToken' received from 'APIService'
 ***main.dart***
 1. Replaced 'int _counter' with 'String _accessToken'.

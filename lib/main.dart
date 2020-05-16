@@ -1,3 +1,4 @@
+import 'package:covidon/enums/endpoint.dart';
 import 'package:covidon/services/api_endpoint.dart';
 import 'package:covidon/services/api_service.dart';
 import 'package:flutter/material.dart';
@@ -31,12 +32,18 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String _accessToken = '';
+  int _cases;
+  int _recovered;
 
   void _updateAccessToken() async {
     final apiService = APIService(apiEndpoint: APIEndpoint.sandboxV1());
     final accessToken = await apiService.getAccessToken();
+    final cases = await apiService.getEndpointDataApiV1(accessToken: accessToken, endpoint: Endpoint.cases);
+    final recovered = await apiService.getEndpointDataApiV1(accessToken: accessToken, endpoint: Endpoint.recovered);
     setState(() {
       _accessToken = accessToken;
+      _cases = cases;
+      _recovered = recovered;
     });
   }
 
@@ -57,6 +64,18 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_accessToken',
               style: Theme.of(context).textTheme.headline4,
             ),
+            // Since initial value for '_cases' will be NULL,
+            // therefore using 'Collection-If' for NULL Check, and only displaying the 'Text' if its not NULL.
+            if (_cases != null)
+              Text(
+                'Cases: $_cases',
+                style: Theme.of(context).textTheme.headline4,
+              ),
+            if (_recovered != null)
+              Text(
+                'Recovered: $_recovered',
+                style: Theme.of(context).textTheme.headline4,
+              ),
           ],
         ),
       ),
