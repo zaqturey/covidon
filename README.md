@@ -18,6 +18,16 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Commits History
 
+### Refactoring - Started implementing a separate UI layer
+***dashboard.dart***
+1. Added a new 'UI' folder.
+2. Added a new 'Dashboard' class (that extends a stf widget) in a newly crated 'dashboard.dart' file.
+
+***main.dart***
+1. Refactored 'home' widget to call 'Dashboard()' instead to 'MyHomePage()'
+2. Removed implementation for 'MyHomePage()' widget.
+
+
 ### Added 'Provider' package to make 'DataRepository' available throughout the 'MaterialApp' widget. 
 ***main.dart***
 1. Wrapped 'MaterialApp' in another Widget i.e. 'Provider<DataRepository>'

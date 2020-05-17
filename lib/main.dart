@@ -1,7 +1,7 @@
-import 'package:covidon/enums/endpoint.dart';
 import 'package:covidon/repository/data_repository.dart';
 import 'package:covidon/services/api_endpoint.dart';
 import 'package:covidon/services/api_service.dart';
+import 'package:covidon/ui/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,74 +23,8 @@ class MyApp extends StatelessWidget {
           cardColor: Color(0xFF222222),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: MyHomePage(title: 'Covidon'),
+        home: Dashboard(),
       ),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  String _accessToken = '';
-  int _cases;
-  int _recovered;
-
-  void _updateAccessToken() async {
-    final apiService = APIService(apiEndpoint: APIEndpoint.sandboxV1());
-    final accessToken = await apiService.getAccessToken();
-    final cases = await apiService.getEndpointDataApiV1(accessToken: accessToken, endpoint: Endpoint.cases);
-    final recovered = await apiService.getEndpointDataApiV1(accessToken: accessToken, endpoint: Endpoint.recovered);
-    setState(() {
-      _accessToken = accessToken;
-      _cases = cases;
-      _recovered = recovered;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_accessToken',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-            // Since initial value for '_cases' will be NULL,
-            // therefore using 'Collection-If' for NULL Check, and only displaying the 'Text' if its not NULL.
-            if (_cases != null)
-              Text(
-                'Cases: $_cases',
-                style: Theme.of(context).textTheme.headline4,
-              ),
-            if (_recovered != null)
-              Text(
-                'Recovered: $_recovered',
-                style: Theme.of(context).textTheme.headline4,
-              ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _updateAccessToken,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
