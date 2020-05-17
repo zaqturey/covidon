@@ -18,10 +18,19 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Commits History
 
+### Added 'Provider' package to make 'DataRepository' available throughout the 'MaterialApp' widget. 
+***main.dart***
+1. Wrapped 'MaterialApp' in another Widget i.e. 'Provider<DataRepository>'
+2. Added 'Create' method (required by the Provider) that implement a Closure method for 'DataRepository' (passing required 'APIService' argument to it.)
+3. In 'MaterialApp' widget, disabled 'debugShowCheckedModeBanner' by setting its value to 'false'
+4. Added Dark theme for 'MaterialApp'
+5. Updated default values for 'ThemeData' i.e. 'scaffoldBackgroundColor' and 'cardColor'
+ 
+
 ### Separating the 'Presentation' layer by creating a separate 'DataRepository' class
 ***endpoint.dart***
 1. Added a new 'DataRepository' class with a class constructor that accepts a required 'apiService' parameter.
-2. Added 'getEndpointDataApiV1' method that accepts an 'Endpoint' parameter and returns a 'Future<int>' after querying the 'accesstoken' and 'endpoint'
+2. Added 'getEndpointDataApiV1' method that accepts an 'Endpoint' parameter and returns a 'Future<int>' after querying the 'accessToken' and 'endpoint'
 
 
 ### Added functionality to fetch and display endpoint data i.e. 'Cases', ''Recovered'

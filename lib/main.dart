@@ -1,7 +1,9 @@
 import 'package:covidon/enums/endpoint.dart';
+import 'package:covidon/repository/data_repository.dart';
 import 'package:covidon/services/api_endpoint.dart';
 import 'package:covidon/services/api_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,13 +13,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+    return Provider<DataRepository>(
+      create: (_) => DataRepository(apiService: APIService(apiEndpoint: APIEndpoint.sandboxV1())),
+      child: MaterialApp(
+        title: 'Covid App',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData.dark().copyWith(
+          scaffoldBackgroundColor: Color(0xFF101010),
+          cardColor: Color(0xFF222222),
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: MyHomePage(title: 'Covidon'),
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
