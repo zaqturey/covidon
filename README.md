@@ -18,6 +18,12 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Commits History
 
+### Separating the 'Presentation' layer by creating a separate 'DataRepository' class
+***endpoint.dart***
+1. Added a new 'DataRepository' class with a class constructor that accepts a required 'apiService' parameter.
+2. Added 'getEndpointDataApiV1' method that accepts an 'Endpoint' parameter and returns a 'Future<int>' after querying the 'accesstoken' and 'endpoint'
+
+
 ### Added functionality to fetch and display endpoint data i.e. 'Cases', ''Recovered'
 ***endpoint.dart***
 1. Added a new 'enum' i.e. 'Endpoint' that will be used to refer available API Endpoints
