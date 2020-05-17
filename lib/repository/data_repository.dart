@@ -35,14 +35,15 @@ class DataRepository {
     }
   }
 
-  // Below method will SEQUENTIALLY fetch the Endpoints Data
+  // Below method will PARALLELY fetch the Data from all the the Endpoints
+  // Using 'Future.wait()' we will add the each response into a temp List
   Future<void> _getAllEndpointDataApiV1() async {
-    final cases = await apiService.getEndpointDataApiV1(accessToken: _accessToken, endpoint: Endpoint.cases);
-    final casesSuspected =
-        await apiService.getEndpointDataApiV1(accessToken: _accessToken, endpoint: Endpoint.casesSuspected);
-    final casesConfirmed =
-        await apiService.getEndpointDataApiV1(accessToken: _accessToken, endpoint: Endpoint.casesConfirmed);
-    final deaths = await apiService.getEndpointDataApiV1(accessToken: _accessToken, endpoint: Endpoint.deaths);
-    final recovered = await apiService.getEndpointDataApiV1(accessToken: _accessToken, endpoint: Endpoint.recovered);
+    await Future.wait([
+      apiService.getEndpointDataApiV1(accessToken: _accessToken, endpoint: Endpoint.cases),
+      apiService.getEndpointDataApiV1(accessToken: _accessToken, endpoint: Endpoint.casesSuspected),
+      apiService.getEndpointDataApiV1(accessToken: _accessToken, endpoint: Endpoint.casesConfirmed),
+      apiService.getEndpointDataApiV1(accessToken: _accessToken, endpoint: Endpoint.deaths),
+      apiService.getEndpointDataApiV1(accessToken: _accessToken, endpoint: Endpoint.recovered),
+    ]);
   }
 }

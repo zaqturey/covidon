@@ -18,6 +18,10 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Commits History
 
+### Refactored '_getAllEndpointDataApiV1()' to Fetch data PARALLELY
+***data_repository.dart***
+1. _getAllEndpointDataApiV1() -> method has been refactored to use 'Future.wait' to process requests PARALLELY and then pul the responses in the Temp list.
+
 ### Added a method to fetch data from all the Endpoints
 ***data_repository.dart***
 1. _getAllEndpointDataApiV1() -> Added this new method that will SEQUENTIALLY fetch the Data from all the Endpoints
