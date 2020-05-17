@@ -18,6 +18,18 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Commits History
 
+### Added a separate Card widget, that will be used by Endpoints
+***endpoint_card.dart***
+1. A new 'EndpointCard' class (that extends a stl widget) has been added, that takes an 'Endpoint' and 'int' parameters for its default constructor.
+2. Defined the 'Card' widget to display the passed in values for 'Endpoint' and 'int' .
+
+***dashboard.dart***
+1. Defined an int variable i.e. '_cases'.
+2. _updateData() -> function that gets the EndpointData using ' Provider.of<DataRepository>' and then calling the 'setState' to update the value of '_cases' variable.
+3. initState() -> overridden 'initState' to call '_updateData()'
+1. Added 'EndpointCard' as children of the 'ListView', (passing 'endpoint: Endpoint.cases', and 'value: _cases' as arguments)
+
+
 ### Refactoring - Started implementing a separate UI layer
 ***dashboard.dart***
 1. Added a new 'UI' folder.
