@@ -18,6 +18,10 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Commits History
 
+### Added a method to fetch data from all the Endpoints
+***data_repository.dart***
+1. _getAllEndpointDataApiV1() -> Added this new method that will SEQUENTIALLY fetch the Data from all the Endpoints
+
 ### Added a separate Card widget, that will be used by Endpoints
 ***endpoint_card.dart***
 1. A new 'EndpointCard' class (that extends a stl widget) has been added, that takes an 'Endpoint' and 'int' parameters for its default constructor.
