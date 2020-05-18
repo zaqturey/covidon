@@ -18,13 +18,25 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Commits History
 
+### Added a Model class to create a 'Map<Endpoint, int>' by using the List<int> and used it in '_getAllEndpointDataApiV1()'
+***endpoints_data.dart***
+1. EndpointsData -> A new Class has been added, that takes a 'Map<Endpoint, int>' parameter for its default constructor.
+
+***data_repository.dart***
+1. _getAllEndpointDataApiV1() -> method has been updated to put the responses from 'Future.wait' to final variable i.e. 'endpointsValues'
+2. _getAllEndpointDataApiV1() -> updated the method signature to return 'Future<EndpointsData>'
+3. EndpointsData ->  Created a new 'Map<Endpoint, int>' i.e. 'EndpointsData' using 'Endpoint' enums and Indexes from 'endpointsValues' and added it as return value for '_getAllEndpointDataApiV1()'.  
+
+
 ### Refactored '_getAllEndpointDataApiV1()' to Fetch data PARALLELY
 ***data_repository.dart***
-1. _getAllEndpointDataApiV1() -> method has been refactored to use 'Future.wait' to process requests PARALLELY and then pul the responses in the Temp list.
+1. _getAllEndpointDataApiV1() -> method has been refactored to use 'Future.wait' to process requests PARALLELY and then put the responses in the Temp list.
+
 
 ### Added a method to fetch data from all the Endpoints
 ***data_repository.dart***
 1. _getAllEndpointDataApiV1() -> Added this new method that will SEQUENTIALLY fetch the Data from all the Endpoints
+
 
 ### Added a separate Card widget, that will be used by Endpoints
 ***endpoint_card.dart***

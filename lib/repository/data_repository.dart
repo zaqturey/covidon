@@ -1,14 +1,15 @@
 import 'package:covidon/enums/endpoint.dart';
+import 'package:covidon/repository/endpoints_data.dart';
 import 'package:covidon/services/api_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 
-class DataRepository {
-  // ====----Presentation Component----====
-  // Purpose of this class is:
-  // 1. To provide the requested data to the UI Components by
-  // 2. Querying the 'Domain Layer' i.e. 'APIService', based on the passed in API 'Endpoint'
+// ====----Presentation Component----====
+// Purpose of this class is:
+// 1. To provide the requested data to the UI Components by
+// 2. Querying the 'Domain Layer' i.e. 'APIService', based on the passed in API 'Endpoint'
 
+class DataRepository {
   // Class Constructor that takes 'apiService' as a required parameter
   DataRepository({@required this.apiService});
   final APIService apiService;
@@ -37,13 +38,21 @@ class DataRepository {
 
   // Below method will PARALLELY fetch the Data from all the the Endpoints
   // Using 'Future.wait()' we will add the each response into a temp List
-  Future<void> _getAllEndpointDataApiV1() async {
-    await Future.wait([
+  Future<EndpointsData> _getAllEndpointDataApiV1() async {
+    // Below will get a 'List<int>' i.e. endpointsValues
+    final endpointsValues = await Future.wait([
       apiService.getEndpointDataApiV1(accessToken: _accessToken, endpoint: Endpoint.cases),
       apiService.getEndpointDataApiV1(accessToken: _accessToken, endpoint: Endpoint.casesSuspected),
       apiService.getEndpointDataApiV1(accessToken: _accessToken, endpoint: Endpoint.casesConfirmed),
       apiService.getEndpointDataApiV1(accessToken: _accessToken, endpoint: Endpoint.deaths),
       apiService.getEndpointDataApiV1(accessToken: _accessToken, endpoint: Endpoint.recovered),
     ]);
+    return EndpointsData(values: {
+      Endpoint.cases: endpointsValues[0],
+      Endpoint.casesSuspected: endpointsValues[1],
+      Endpoint.casesConfirmed: endpointsValues[2],
+      Endpoint.deaths: endpointsValues[3],
+      Endpoint.recovered: endpointsValues[4],
+    });
   }
 }
