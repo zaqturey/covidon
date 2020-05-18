@@ -18,6 +18,12 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Commits History
 
+### Updated 'EndpointsData' class 
+***endpoints_data.dart***
+1. Getters -> Added getters using 'Endpoint' enum values
+2. toString() -> Overridden 'toString()' to get/print debugging information about an 'EndpointsData' object 
+
+
 ### Added a Model class to create a 'Map<Endpoint, int>' by using the List<int> and used it in '_getAllEndpointDataApiV1()'
 ***endpoints_data.dart***
 1. EndpointsData -> A new Class has been added, that takes a 'Map<Endpoint, int>' parameter for its default constructor.
