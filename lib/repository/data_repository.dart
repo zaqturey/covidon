@@ -16,27 +16,33 @@ class DataRepository {
 
   String _accessToken;
 
-  // 'getEndpointDataApiV1' method Queries the 'apiService' to
-  // 1. get the 'AccessToken' (only if 'AccessToken' is NULL or if its expired)
-  // 2. get data from the passed in 'Endpoint' based on the 'AccessToken' retrieved above
-  // 3. Return the result received querying the 'Endpoint'
-  // 4. Implement Error Handling
-  Future<int> getEndpointDataApiV1(Endpoint endpoint) async {
+  // Method to get the Result for a Single Endpoint
+  Future<int> getEndpointDataApiV1(Endpoint endpoint) async => await _getDataRefreshingToken<int>(
+        onGetData: () => apiService.getEndpointDataApiV1(accessToken: _accessToken, endpoint: endpoint),
+      );
+
+  // Method to get the Results for ALL the Endpoints
+  Future<EndpointsData> getAllEndpointDataApiV1() async => await _getDataRefreshingToken<EndpointsData>(
+        onGetData: _getAllEndpointDataApiV1,
+      );
+
+  // function '_getDataRefreshingToken' accepts another 'Function()' as its parameter, which will return a Future<T>
+  Future<T> _getDataRefreshingToken<T>({Future<T> Function() onGetData}) async {
     try {
       if (_accessToken == null) {
         _accessToken = await apiService.getAccessToken();
       }
-      return await apiService.getEndpointDataApiV1(accessToken: _accessToken, endpoint: endpoint);
+      return await onGetData();
     } on Response catch (response) {
       if (response.statusCode == 401) {
         _accessToken = await apiService.getAccessToken();
-        return await apiService.getEndpointDataApiV1(accessToken: _accessToken, endpoint: endpoint);
+        return await onGetData();
       }
       rethrow;
     }
   }
 
-  // Below method will PARALLELY fetch the Data from all the the Endpoints
+  // Below method will PARALLELY fetch the Data from all the Endpoints and
   // Using 'Future.wait()' we will add the each response into a temp List
   Future<EndpointsData> _getAllEndpointDataApiV1() async {
     // Below will get a 'List<int>' i.e. endpointsValues

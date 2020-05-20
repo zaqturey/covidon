@@ -18,6 +18,13 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Commits History
 
+### Updated 'DataRepository' class by common code into a separate method (code reusability) 
+***data_repository.dart***
+1. _getDataRefreshingToken<T>() --> Added this new method to check if '_accessToken' is valid or not and then calling the passed in function 'onGetData' using that 'accessToken'
+2. getEndpointDataApiV1(Endpoint endpoint) --> Refactored to use '_getDataRefreshingToken<T>()'
+3. getAllEndpointDataApiV1() --> Refactored to use '_getDataRefreshingToken<T>()'
+
+
 ### Updated 'EndpointsData' class 
 ***endpoints_data.dart***
 1. Getters -> Added getters using 'Endpoint' enum values
