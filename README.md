@@ -18,6 +18,16 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Commits History
 
+### Updated 'Dashboard' class to show updated values for all the Endpoints and corresponding Text
+***dashboard.dart***
+1. _updateData() --> Calling 'getAllEndpointDataApiV1()' instead of 'getEndpointDataApiV1(Endpoint.cases)'
+2. Since 'getAllEndpointDataApiV1()' returns a 'Future<EndpointsData>', hence refactored/renamed to use 'EndpointsData _endpointsData' instead of 'int _cases'
+3. FOR loop on '_endpointsData' --> Updated 'EndpointCard' widget i.e. now we first iterate though  each Endpoint in '_endpointsData', and then returns the updated the 'EndpointCard'.
+
+***endpoint_card.dart***
+1. Replaced hard coded Text value i.e. 'cases' with a dynamic MAP i.e. '_cardTitle' that displays the value for the passed in 'endpoint' enum.
+
+
 ### Updated 'DataRepository' class by common code into a separate method (code reusability) 
 ***data_repository.dart***
 1. _getDataRefreshingToken<T>() --> Added this new method to check if '_accessToken' is valid or not and then calling the passed in function 'onGetData' using that 'accessToken'

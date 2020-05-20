@@ -1,5 +1,6 @@
 import 'package:covidon/enums/endpoint.dart';
 import 'package:covidon/repository/data_repository.dart';
+import 'package:covidon/repository/endpoints_data.dart';
 import 'package:covidon/ui/endpoint_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +11,7 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  int _cases;
+  EndpointsData _endpointsData;
 
   // Calling '_updateData()' each time the App starts, as 'Dashboard()' will be called on App Start.
   @override
@@ -21,8 +22,8 @@ class _DashboardState extends State<Dashboard> {
 
   Future<void> _updateData() async {
     final dataRepository = Provider.of<DataRepository>(context, listen: false);
-    final cases = await dataRepository.getEndpointDataApiV1(Endpoint.cases);
-    setState(() => _cases = cases);
+    final endpointsData = await dataRepository.getAllEndpointDataApiV1();
+    setState(() => _endpointsData = endpointsData);
   }
 
   @override
@@ -31,10 +32,11 @@ class _DashboardState extends State<Dashboard> {
       appBar: AppBar(title: Text("Covidon")),
       body: ListView(
         children: <Widget>[
-          EndpointCard(
-            endpoint: Endpoint.cases,
-            value: _cases,
-          )
+          for (var endpoint in Endpoint.values)
+            EndpointCard(
+              endpoint: endpoint,
+              value: _endpointsData != null ? _endpointsData.values[endpoint] : null,
+            )
         ],
       ),
     );
