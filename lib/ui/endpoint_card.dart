@@ -16,14 +16,6 @@ class EndpointCard extends StatelessWidget {
     Endpoint.recovered: EndpointCardData('recovered', 'assets/patient.png', Color(0xFF70A901)),
   };
 
-//  static Map<Endpoint, String> _cardTitle = {
-//    Endpoint.cases: 'cases',
-//    Endpoint.casesSuspected: 'cases/suspected',
-//    Endpoint.casesConfirmed: 'cases/confirmed',
-//    Endpoint.deaths: 'deaths',
-//    Endpoint.recovered: 'recovered',
-//  };
-
   @override
   Widget build(BuildContext context) {
     final cardData = _cardData[endpoint];
@@ -52,7 +44,10 @@ class EndpointCard extends StatelessWidget {
                     ),
                     Text(
                       value != null ? value.toString() : '',
-                      style: Theme.of(context).textTheme.headline4.copyWith(color: cardData.cardColor),
+                      style: Theme.of(context).textTheme.headline4.copyWith(
+                            color: cardData.cardColor,
+                            fontWeight: FontWeight.w500,
+                          ),
                     ),
                   ],
                 ),

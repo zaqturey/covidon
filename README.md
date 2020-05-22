@@ -4,6 +4,13 @@ A project to get covid info.
 ## Commits History
 
 ************************************************************************************************************************************************************************
+### Date parsing using 'tryParse'
+========================================================================================================================================================================
+- Note: As we need show the Date on 'Dashboard', will fetch the 'date' key from the JSON response
+***api_service.dart***
+1. getEndpointDataApiV1 --> Updated to fetch the 'date' Key  from the JSON response and then 'tryParse' it to save as a  'DateTime' object
+
+************************************************************************************************************************************************************************
 ### Added a new Model class to represent data for a single card and Updated Card properties to use it
 ========================================================================================================================================================================
 ***endpoint_card_data.dart***

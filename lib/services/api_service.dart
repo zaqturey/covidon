@@ -56,6 +56,11 @@ class APIService {
         // As required KEY name is different for different Endpoints, getting the correct KEY name for the Endpoint.
         final responseJsonKey = _responseJsonKeys[endpoint];
         final int result = endpointData[responseJsonKey];
+        // Getting the value associated with 'date' key
+        final String dateString = endpointData['date'];
+        // parsing the date using 'tryParse' rather than 'parse'
+        // 'tryParse' doesn't throw error if the input String can't be parsed and instead returns null
+        final date = DateTime.tryParse(dateString);
         if (result != null) {
           return result;
         }
