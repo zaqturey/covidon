@@ -1,5 +1,5 @@
 import 'package:covidon/enums/endpoint.dart';
-import 'package:covidon/repository/endpoints_data.dart';
+import 'package:covidon/models/endpoints_data.dart';
 import 'package:covidon/services/api_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';

@@ -4,11 +4,26 @@ A project to get covid info.
 ## Commits History
 
 ************************************************************************************************************************************************************************
+### Created a new data madel so that 'getEndpointDataApiV1' can return both 'countValue' (earlier 'result') and 'date' instead of only 'result' (Future<int>)
+========================================================================================================================================================================
+***endpoint_data.dart***
+1. EndpointData --> This class provides a Custom Data Type i.e. 'EndpointData' which is a combination of 'int' and 'DateTIme' values
+
+***api_service.dart***
+1. getEndpointDataApiV1 -->
+1.1. Renamed 'result' variable to 'value' 
+1.2 Updated the return statement i.e. instead of 'result' (which is of type int), it now returns an 'EndpointData' object (with 'value' and 'date')   
+1.3 Also updated the method return type (signature) form 'Future<int>' to 'Future<EndpointData>'
+
+
+************************************************************************************************************************************************************************
 ### Date parsing using 'tryParse'
 ========================================================================================================================================================================
 - Note: As we need show the Date on 'Dashboard', will fetch the 'date' key from the JSON response
+
 ***api_service.dart***
-1. getEndpointDataApiV1 --> Updated to fetch the 'date' Key  from the JSON response and then 'tryParse' it to save as a  'DateTime' object
+1. getEndpointDataApiV1 --> Updated to fetch the 'date' Key from the JSON response and then 'tryParse' it to save as a  'DateTime' object
+
 
 ************************************************************************************************************************************************************************
 ### Added a new Model class to represent data for a single card and Updated Card properties to use it

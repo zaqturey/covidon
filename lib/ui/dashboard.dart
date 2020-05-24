@@ -1,6 +1,6 @@
 import 'package:covidon/enums/endpoint.dart';
+import 'package:covidon/models/endpoints_data.dart';
 import 'package:covidon/repository/data_repository.dart';
-import 'package:covidon/repository/endpoints_data.dart';
 import 'package:covidon/ui/endpoint_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
