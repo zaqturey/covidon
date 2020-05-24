@@ -1,4 +1,5 @@
 import 'package:covidon/enums/endpoint.dart';
+import 'package:covidon/models/endpoint_data.dart';
 import 'package:covidon/models/endpoints_data.dart';
 import 'package:covidon/services/api_service.dart';
 import 'package:flutter/foundation.dart';
@@ -17,7 +18,7 @@ class DataRepository {
   String _accessToken;
 
   // Method to get the Result for a Single Endpoint
-  Future<int> getEndpointDataApiV1(Endpoint endpoint) async => await _getDataRefreshingToken<int>(
+  Future<EndpointData> getEndpointDataApiV1(Endpoint endpoint) async => await _getDataRefreshingToken<EndpointData>(
         onGetData: () => apiService.getEndpointDataApiV1(accessToken: _accessToken, endpoint: endpoint),
       );
 

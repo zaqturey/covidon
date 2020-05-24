@@ -4,6 +4,20 @@ A project to get covid info.
 ## Commits History
 
 ************************************************************************************************************************************************************************
+### Refactored 'DataRepository' class to  accommodate the new return type of 'getEndpointDataApiV1' i.e. 'Future<EndpointData>' (from 'APIService' class)
+========================================================================================================================================================================
+***data_repository.dart***
+1. getEndpointDataApiV1 --> Updated return type from 'Future<int>' to 'Future<EndpointData>'
+2. getEndpointDataApiV1 --> Updated type for '_getDataRefreshingToken' method i.e. from 'getDataRefreshingToken<int>' to 'getDataRefreshingToken<EndpointData>'
+
+***endpoints_data.dart***
+1. Updated Map to Except 'value' of type 'EndpointData' instead of 'int' i.e. 'from Map<Endpoint, int>' to Map<Endpoint, EndpointData>
+2. Updated the getters to use 'EndpointData' as return type instead of 'int'
+
+***dashboard.dart***
+1. Updated 'value' property of 'EndpointCard' to use '_endpointsData.values[endpoint].value' instead of '_endpointsData.values[endpoint]'
+ 
+************************************************************************************************************************************************************************
 ### Created a new data madel so that 'getEndpointDataApiV1' can return both 'countValue' (earlier 'result') and 'date' instead of only 'result' (Future<int>)
 ========================================================================================================================================================================
 ***endpoint_data.dart***

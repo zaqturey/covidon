@@ -35,7 +35,7 @@ class _DashboardState extends State<Dashboard> {
           for (var endpoint in Endpoint.values)
             EndpointCard(
               endpoint: endpoint,
-              value: _endpointsData != null ? _endpointsData.values[endpoint] : null,
+              value: _endpointsData != null ? _endpointsData.values[endpoint].value : null,
             )
         ],
       ),
