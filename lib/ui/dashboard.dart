@@ -35,21 +35,24 @@ class _DashboardState extends State<Dashboard> {
 
     return Scaffold(
       appBar: AppBar(title: Text("Covidon")),
-      body: ListView(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              'Last updated: $formattedDate',
-              textAlign: TextAlign.center,
+      body: RefreshIndicator(
+        onRefresh: _updateData,
+        child: ListView(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Last updated: $formattedDate',
+                textAlign: TextAlign.center,
+              ),
             ),
-          ),
-          for (var endpoint in Endpoint.values)
-            EndpointCard(
-              endpoint: endpoint,
-              value: _endpointsData != null ? _endpointsData.values[endpoint].value : null,
-            )
-        ],
+            for (var endpoint in Endpoint.values)
+              EndpointCard(
+                endpoint: endpoint,
+                value: _endpointsData != null ? _endpointsData.values[endpoint].value : null,
+              )
+          ],
+        ),
       ),
     );
   }
