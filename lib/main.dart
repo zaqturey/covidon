@@ -3,9 +3,13 @@ import 'package:covidon/services/api_endpoint.dart';
 import 'package:covidon/services/api_service.dart';
 import 'package:covidon/ui/dashboard.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  Intl.defaultLocale = 'en_GB';
+  await initializeDateFormatting();
   runApp(MyApp());
 }
 
