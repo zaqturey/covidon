@@ -4,6 +4,22 @@ A project to get covid info.
 ## Commits History
 
 ************************************************************************************************************************************************************************
+### Date formatting using 'intl 0.16.1' package
+========================================================================================================================================================================
+***pubspec.yaml***
+1. Added a new package to format the Date i.e. 'intl 0.16.1'
+
+***date_formatter.dart***
+1. DateFormatter --> Added this new class, it accepts a 'DateTime' object, formats it, convert it to a String and returns it.
+
+***dashboard.dart***
+1. formattedDate --> pass '[Endpoint.cases].date' to 'DateFormatter' and assign the formatted to String to this variable.
+2. Removed 'LastUpdatedStatusText' and instead used a 'Text' widget that displays the Sting value in 'formattedDate'
+
+***last_updated_status_text.dart***
+1. Deleted this 'LastUpdatedStatusText' class as it was unnecessarily adding the complexity. 
+
+************************************************************************************************************************************************************************
 ### Added a new Widget i.e. to display the 'Last Updated Date' on dashboard
 ========================================================================================================================================================================
 ***last_updated_status_text.dart***
