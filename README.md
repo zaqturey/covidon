@@ -4,7 +4,17 @@ A project to get covid info.
 ## Commits History
 
 ************************************************************************************************************************************************************************
-### Refactored 'DataRepository' class to  accommodate the new return type of 'getEndpointDataApiV1' i.e. 'Future<EndpointData>' (from 'APIService' class)
+### Added a new Widget i.e. to display the 'Last Updated Date' on dashboard
+========================================================================================================================================================================
+***last_updated_status_text.dart***
+1. LastUpdatedStatusText --> Added this new Stateless class, which accepts a String and returns a customized Text widget
+
+***dashboard.dart***
+1. Updated 'ListView' to display a new widget i.e. 'LastUpdatedStatusText' as its children.
+2. Since the 'date' is present in each 'API Response', so we can use any Endpoint to get the value for 'dateText' i.e. '[Endpoint.cases].date.toString()'
+
+************************************************************************************************************************************************************************
+### Refactored 'DataRepository' class to accommodate the new return type of 'getEndpointDataApiV1' i.e. 'Future<EndpointData>' (from 'APIService' class)
 ========================================================================================================================================================================
 ***data_repository.dart***
 1. getEndpointDataApiV1 --> Updated return type from 'Future<int>' to 'Future<EndpointData>'

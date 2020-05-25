@@ -46,7 +46,7 @@ class DataRepository {
   // Below method will PARALLELY fetch the Data from all the Endpoints and
   // Using 'Future.wait()' we will add the each response into a temp List
   Future<EndpointsData> _getAllEndpointDataApiV1() async {
-    // Below will get a 'List<int>' i.e. endpointsValues
+    // Below will get a 'List<EndpointData>' i.e. endpointsValues
     final endpointsValues = await Future.wait([
       apiService.getEndpointDataApiV1(accessToken: _accessToken, endpoint: Endpoint.cases),
       apiService.getEndpointDataApiV1(accessToken: _accessToken, endpoint: Endpoint.casesSuspected),
@@ -54,6 +54,7 @@ class DataRepository {
       apiService.getEndpointDataApiV1(accessToken: _accessToken, endpoint: Endpoint.deaths),
       apiService.getEndpointDataApiV1(accessToken: _accessToken, endpoint: Endpoint.recovered),
     ]);
+    // Now creating and returning 'values' (which is of Type 'EndpointsData' i.e. a MAP<Endpoint, EndpointData>)
     return EndpointsData(values: {
       Endpoint.cases: endpointsValues[0],
       Endpoint.casesSuspected: endpointsValues[1],

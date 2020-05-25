@@ -2,6 +2,7 @@ import 'package:covidon/enums/endpoint.dart';
 import 'package:covidon/models/endpoints_data.dart';
 import 'package:covidon/repository/data_repository.dart';
 import 'package:covidon/ui/endpoint_card.dart';
+import 'package:covidon/ui/last_updated_status_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -32,6 +33,9 @@ class _DashboardState extends State<Dashboard> {
       appBar: AppBar(title: Text("Covidon")),
       body: ListView(
         children: <Widget>[
+          LastUpdatedStatusText(
+            dateText: _endpointsData != null ? _endpointsData.values[Endpoint.cases].date.toString() ?? '' : '',
+          ),
           for (var endpoint in Endpoint.values)
             EndpointCard(
               endpoint: endpoint,
