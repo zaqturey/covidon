@@ -4,6 +4,16 @@ A project to get covid info.
 ## Commits History
 
 ************************************************************************************************************************************************************************
+### Added a separate class/method to add a Thousand separator using Intl package
+========================================================================================================================================================================
+***number_formatter.dart***
+1. NumberFormatter --> Added this new class, it accepts an 'int' object, it formats this number by applying a Thousand separator to it and then return it as a String.
+
+***endpoint_card.dart***
+1. Added a 'Getter' i.e. 'formattedValue' that takes an int, adds a Thousand separator to it and converts it to a String (using 'NumberFormatter') 
+2. Updated 'Text' value (of Row child) to use 'formattedValue' instead of 'value'.
+
+************************************************************************************************************************************************************************
 ### Added a 'RefreshIndicator', and a method to be called 'onRefresh'
 ========================================================================================================================================================================
 ***main.dart***

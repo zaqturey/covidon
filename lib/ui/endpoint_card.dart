@@ -1,5 +1,6 @@
 import 'package:covidon/enums/endpoint.dart';
 import 'package:covidon/models/endpoint_card_data.dart';
+import 'package:covidon/utils/number_formatter.dart';
 import 'package:flutter/material.dart';
 
 // ====----Custom Widget----====
@@ -15,6 +16,10 @@ class EndpointCard extends StatelessWidget {
     Endpoint.deaths: EndpointCardData('deaths', 'assets/death.png', Color(0xFFE40000)),
     Endpoint.recovered: EndpointCardData('recovered', 'assets/patient.png', Color(0xFF70A901)),
   };
+
+  String get formattedValue {
+    return NumberFormatter(numberToFormat: value).formatNumber();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +48,7 @@ class EndpointCard extends StatelessWidget {
                       color: cardData.cardColor,
                     ),
                     Text(
-                      value != null ? value.toString() : '',
+                      formattedValue,
                       style: Theme.of(context).textTheme.headline4.copyWith(
                             color: cardData.cardColor,
                             fontWeight: FontWeight.w500,
