@@ -4,7 +4,19 @@ A project to get covid info.
 ## Commits History
 
 ************************************************************************************************************************************************************************
-### Added a Future<void> function i.e. 'showAlertDialogue' to display Platform specific Alert Dialogue 
+### Using 'Shared Preferences' for local/offline data persistence i.e. locally storing the responses from Endpoints by adding a new service class
+========================================================================================================================================================================
+***pubspec.yaml***
+1. Added a new package to implement local data persistence i.e. 'shared_preferences: ^0.5.7+3'
+
+***data_cache_service.dart***
+1. DataCacheService --> Added this new class, it accepts a @required 'SharedPreferences' object.
+2. Future<void> setData(EndpointsData endpointsData) --> Method to store 'EndpointsData' data into 'sharedPreferences'
+3. EndpointsData getData() -->  Method to retrieve and return the 'EndpointsData' data from the 'sharedPreferences'
+
+
+************************************************************************************************************************************************************************
+### Added a helper function i.e. 'showAlertDialogue' to display Platform specific Alert Dialogue 
 ========================================================================================================================================================================
 ***show_alert_dialogue.dart***
 1. showAlertDialogue --> Added this new Function, it accepts 'context', 'title', 'content' and 'defaultActionText', and displays Platform specific alert dialogues
@@ -12,6 +24,7 @@ A project to get covid info.
 ***dashboard.dart***
 1. _updateData --> Updated to handle 'SocketException' and display 'showAlertDialogue' whenever a 'SocketException' is thrown e.g. Network is unavailable.
 2. _updateData --> Also Updated to handle 'Generic' exceptions to display 'showAlertDialogue' (with relevant info) if other exception is thrown e.g 'Invalid access token'
+
 
 ************************************************************************************************************************************************************************
 ### Added a separate class/method to add a Thousand separator using Intl package
