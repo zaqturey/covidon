@@ -4,6 +4,16 @@ A project to get covid info.
 ## Commits History
 
 ************************************************************************************************************************************************************************
+### Added a Future<void> function i.e. 'showAlertDialogue' to display Platform specific Alert Dialogue 
+========================================================================================================================================================================
+***show_alert_dialogue.dart***
+1. showAlertDialogue --> Added this new Function, it accepts 'context', 'title', 'content' and 'defaultActionText', and displays Platform specific alert dialogues
+
+***dashboard.dart***
+1. _updateData --> Updated to handle 'SocketException' and display 'showAlertDialogue' whenever a 'SocketException' is thrown e.g. Network is unavailable.
+2. _updateData --> Also Updated to handle 'Generic' exceptions to display 'showAlertDialogue' (with relevant info) if other exception is thrown e.g 'Invalid access token'
+
+************************************************************************************************************************************************************************
 ### Added a separate class/method to add a Thousand separator using Intl package
 ========================================================================================================================================================================
 ***number_formatter.dart***
@@ -13,11 +23,13 @@ A project to get covid info.
 1. Added a 'Getter' i.e. 'formattedValue' that takes an int, adds a Thousand separator to it and converts it to a String (using 'NumberFormatter') 
 2. Updated 'Text' value (of Row child) to use 'formattedValue' instead of 'value'.
 
+
 ************************************************************************************************************************************************************************
 ### Added a 'RefreshIndicator', and a method to be called 'onRefresh'
 ========================================================================================================================================================================
 ***main.dart***
 1. RefreshIndicator --> 'ListView' has been wrapped into a 'RefreshIndicator', and '_updateData' callback has been assigned to its 'onRefresh' property.
+
 
 ************************************************************************************************************************************************************************
 ### Added default locale for the entire App

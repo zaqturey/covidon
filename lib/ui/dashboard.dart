@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:covidon/enums/endpoint.dart';
 import 'package:covidon/models/endpoints_data.dart';
 import 'package:covidon/repository/data_repository.dart';
 import 'package:covidon/ui/endpoint_card.dart';
+import 'package:covidon/ui/show_alert_dialogue.dart';
 import 'package:covidon/utils/date_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,9 +25,25 @@ class _DashboardState extends State<Dashboard> {
   }
 
   Future<void> _updateData() async {
-    final dataRepository = Provider.of<DataRepository>(context, listen: false);
-    final endpointsData = await dataRepository.getAllEndpointDataApiV1();
-    setState(() => _endpointsData = endpointsData);
+    try {
+      final dataRepository = Provider.of<DataRepository>(context, listen: false);
+      final endpointsData = await dataRepository.getAllEndpointDataApiV1();
+      setState(() => _endpointsData = endpointsData);
+    } on SocketException catch (_) {
+      showAlertDialogue(
+        context: context,
+        title: 'Connection Error',
+        content: 'Could not retrieve data. Please try again later.',
+        defaultActionText: 'OK',
+      );
+    } catch (_) {
+      showAlertDialogue(
+        context: context,
+        title: 'Unknown Error',
+        content: 'Please contact support or try again later.',
+        defaultActionText: 'OK',
+      );
+    }
   }
 
   @override
