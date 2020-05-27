@@ -18,9 +18,15 @@ class _DashboardState extends State<Dashboard> {
   EndpointsData _endpointsData;
 
   // Calling '_updateData()' each time the App starts, as 'Dashboard()' will be called on App Start.
+  // App (initState()) will first try to fetch the 'Cached Data' and then make an API request to get the latest Data.
+  // Note: Getting data from 'SharedPreferences' is a Synchronous operation that allows us to display data instantly.
   @override
   void initState() {
     super.initState();
+    // Getting 'DataRepository' using Provider
+    final dataRepository = Provider.of<DataRepository>(context, listen: false);
+    // Updating the '_endpointsData' using Cached data.
+    _endpointsData = dataRepository.getAllEndpointsCachedData();
     _updateData();
   }
 
@@ -49,7 +55,7 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     final formattedDate = DateFormatter(
-      dateToFormat: _endpointsData != null ? _endpointsData.values[Endpoint.cases].date : null,
+      dateToFormat: _endpointsData != null ? _endpointsData.values[Endpoint.cases]?.date : null,
     ).formatDate();
 
     return Scaffold(
@@ -68,7 +74,7 @@ class _DashboardState extends State<Dashboard> {
             for (var endpoint in Endpoint.values)
               EndpointCard(
                 endpoint: endpoint,
-                value: _endpointsData != null ? _endpointsData.values[endpoint].value : null,
+                value: _endpointsData != null ? _endpointsData.values[endpoint]?.value : null,
               )
           ],
         ),

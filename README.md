@@ -4,6 +4,39 @@ A project to get covid info.
 ## Commits History
 
 ************************************************************************************************************************************************************************
+### Updated 'dashboard' to get and display the data from 'SharedPreferences' when the app is launched.
+========================================================================================================================================================================
+***data_repository.dart***
+1. Updated 'DataRepository' to use 'SharedPreferences' by creating an instance of 'DataCacheService' and adding it as a @required parameter to class constructor.
+2. getAllEndpointDataApiV1 --> Now first storing the API Response data into 'SharedPreferences', before returning it to the calling function.
+3. getAllEndpointsCachedData() --> Reading the Cached Data (if App is restarted and thee is no Network)  from 'DataCacheService'
+
+***dashboard.dart***
+1. initState() --> Added an instance of 'DataRepository' using Provider.
+2. _endpointsData --> Updating the value of '_endpointsData' using 'Cached data' by calling 'dataRepository.getAllEndpointsCachedData()'
+3. Note: --> Now we are making 2 calls inside 'initState()' first to get the 'Cached Data' and then to get the Updated data via API i.e. '_updateData()'
+
+***main.dart***
+1. main() --> Added an instance of 'sharedPreferences' (which is an Async call)
+2. main() --> Passing 'sharedPreferences' as an argument to the 'MyApp()' method. 
+3. MyApp() --> Updated 'MyApp()' to get 'sharedPreferences' as a @required parameter to its Constructor.
+4. Provider()/DataRepository() --> Added 'dataCacheService' argument to 'DataRepository', passing the 'sharedPreferences' Instance to it (received as Constructor arg)
+
+***main.dart (Error Handling)***
+1. Error: -> ServicesBinding.defaultBinaryMessenger was accessed before the binding was initialized.
+>> Solution: -> Added 'WidgetsFlutterBinding.ensureInitialized()' to execute first in 'main()' method.
+
+***dashboard.dart (Error Handling)***
+1. Error: -> 'The getter 'date' was called on null.'
+>> Solution: -> Added Null Check on 'date' --> '_endpointsData.values[Endpoint.cases]?.date' by using 'conditional member access operator' i.e. replaced (. -> ?.)
+
+2. Error: -> 'The getter 'value' was called on null.'
+>> Solution: -> Added Null Check on 'value' --> '_endpointsData.values[endpoint]?.value' by using 'conditional member access operator' i.e. replaced (. -> ?.)
+
+- Note: Above error occurred because we have called 'getData()' before calling 'setData()' i.e.
+- When the App launched for the First Time (SharedPreferences are Empty) which in this case will return an Empty Map to 'dataRepository.getAllEndpointsCachedData()'
+
+************************************************************************************************************************************************************************
 ### Using 'Shared Preferences' for local/offline data persistence i.e. locally storing the responses from Endpoints by adding a new service class
 ========================================================================================================================================================================
 ***pubspec.yaml***

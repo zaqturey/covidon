@@ -2,6 +2,7 @@ import 'package:covidon/enums/endpoint.dart';
 import 'package:covidon/models/endpoint_data.dart';
 import 'package:covidon/models/endpoints_data.dart';
 import 'package:covidon/services/api_service.dart';
+import 'package:covidon/services/data_cache_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 
@@ -12,8 +13,9 @@ import 'package:http/http.dart';
 
 class DataRepository {
   // Class Constructor that takes 'apiService' as a required parameter
-  DataRepository({@required this.apiService});
+  DataRepository({@required this.apiService, @required this.dataCacheService});
   final APIService apiService;
+  final DataCacheService dataCacheService;
 
   String _accessToken;
 
@@ -23,9 +25,17 @@ class DataRepository {
       );
 
   // Method to get the Results for ALL the Endpoints
-  Future<EndpointsData> getAllEndpointDataApiV1() async => await _getDataRefreshingToken<EndpointsData>(
-        onGetData: _getAllEndpointDataApiV1,
-      );
+  Future<EndpointsData> getAllEndpointDataApiV1() async {
+    final endpointsData = await _getDataRefreshingToken<EndpointsData>(
+      onGetData: _getAllEndpointDataApiV1,
+    );
+    // Storing/Updating the API response to 'SharedPreferences'
+    dataCacheService.setData(endpointsData);
+    return endpointsData;
+  }
+
+  // Fetching the Cached data from 'DataCacheService'
+  EndpointsData getAllEndpointsCachedData() => dataCacheService.getData();
 
   // function '_getDataRefreshingToken' accepts another 'Function()' as its parameter, which will return a Future<T>
   Future<T> _getDataRefreshingToken<T>({Future<T> Function() onGetData}) async {
